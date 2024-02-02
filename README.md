@@ -1,4 +1,4 @@
-# Data Science Project: CO2 emissions by vehicles
+# Data Science Project: CO2 Emissions by Vehicles
 ## Project Overview
 
 This repository contains the code and documentation for a data science project focused on identifying vehicles with high CO2 emissions. The project is organized into multiple steps, each with specific deadlines and objectives.
