@@ -1,0 +1,28 @@
+1) Distribution of CO2 Emissions by Car Fuel Type
+The horizontal bar plot we created shows the mean CO2 emissions for different car fuel types. 
+The order of the bars from top to bottom represents the ascending order of mean CO2 emissions. Here's an interpretation based on our observation:
+- ES/GN (Ethanol/Gasoline): This category has the highest mean CO2 emissions among the displayed fuel types. It indicates that vehicles using a combination of Ethanol and Gasoline tend to emit more CO2 on average.
+
+- EE (Electric/Electric): This category represents vehicles that are fully electric (Electric) and use an electric powertrain exclusively. 
+The "EE" category has the lowest mean CO2 emissions among the displayed fuel types. The low CO2 emissions in this category indicate a reduced carbon footprint compared to vehicles with other fuel types.
+
+- EL (Electric/LPG): The absence of a bar for this category in the plot suggests that there might be very few or no vehicles with the combination of Electric and LPG in the dataset. As a result, the dataset does not provide sufficient information to calculate a meaningful mean CO2 emissions value for this particular fuel type.
+
+This is information about other fuel types:
+FE (Electric)
+
+ES (Electric/Gasoline) and Go (Gasoline)
+
+GN/ES (Natural Gas/Electric)
+
+EH (Electric/Hybrid)
+
+GN (Natural Gas)
+
+ES/GP (Electric/LPG)
+
+GP/ES (LPG/Electric)
+
+GH (Gasoline/Hybrid)
+
+GL (LPG/Hybrid)
