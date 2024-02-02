@@ -26,3 +26,13 @@ GP/ES (LPG/Electric)
 GH (Gasoline/Hybrid)
 
 GL (LPG/Hybrid)
+We need to consider that these interpretations are based on the mean values, and individual vehicles within each category may vary in their CO2 emissions. 
+
+2. Relationship Between Power and CO2 Emissions
+we can identify two observations based on this diagram:
+- Vehicles with more power tend to have higher CO2 emissions and vise versa. This observation 
+aligns with general expectations, as vehicles with higher power often have larger engines and may consume more fuel.
+
+- A large number of data points are concentrated within a specific range of power values, such as between approximately 50 and 250. But, we have a large number of data points concentrated within a specific range of power values, such as between approximately 50 and 250.
+The concentration of data points in a specific power range may indicate that many vehicles in the dataset share similar power characteristics. But, we need to explore the dataset further to see popular models or manufacturers within this power range.
+Vehicles with extremely high power values (e.g., greater than 400 kW) are often high-performance or specialty vehicles. These could include sports cars, luxury vehicles, or other niche segments. The limited number of data points in this range might be reflective of the relatively lower production volume of such vehicles compared to mainstream models.
