@@ -34,7 +34,7 @@ st.header("Data Visualizations")
 # Histogram of CO2 emissions
 st.subheader("CO2 Emissions Distribution")
 fig, ax = plt.subplots()
-sns.histplot(df['CO2 (g/km)'], kde=True, ax=ax)  # Assuming 'CO2 (g/km)' is the correct column name
+sns.histplot(df['CO2 (g/km)'], kde=True, ax=ax)  #
 ax.set_title('Distribution of CO2 Emissions')
 ax.set_xlabel('CO2 Emissions (g/km)')
 ax.set_ylabel('Frequency')
@@ -57,14 +57,5 @@ sns.heatmap(df.corr(), annot=True, fmt=".2f", cmap='coolwarm', ax=ax)
 ax.set_title('Correlation Matrix')
 st.pyplot(fig)
 
-# Optional user interactions
-st.header("User Interactions")
-
-# Custom scatter plot based on user selection
-st.subheader("Custom Scatter Plot")
-x_axis_custom = st.selectbox("Select X-axis variable", df.columns)
-y_axis_custom = st.selectbox("Select Y-axis variable", df.columns)
-fig = px.scatter(df, x=x_axis_custom, y=y_axis_custom, title=f'{y_axis_custom} vs. {x_axis_custom}')
-st.plotly_chart(fig)
 
 
