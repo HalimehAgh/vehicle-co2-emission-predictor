@@ -50,12 +50,44 @@ fig = px.scatter(df, x=x_axis, y='CO2 (g/km)', title=f'CO2 Emissions vs. {x_axis
 st.plotly_chart(fig)
 
 
-# Display correlation matrix
-st.subheader("Correlation Matrix")
-fig, ax = plt.subplots(figsize=(10, 6))
-sns.heatmap(df.corr(), annot=True, fmt=".2f", cmap='coolwarm', ax=ax)
-ax.set_title('Correlation Matrix')
-st.pyplot(fig)
+# # Display correlation matrix
+# st.subheader("Correlation Matrix")
+# fig, ax = plt.subplots(figsize=(10, 6))
+# sns.heatmap(df.corr(), annot=True, fmt=".2f", cmap='coolwarm', ax=ax)
+# ax.set_title('Correlation Matrix')
+# st.pyplot(fig)
+
+
+# Comparison of Different Model Metrics
+
+st.subheader("Comparison of Different Model Metrics")
+# Select Models and Metrics
+# Load data from CSV
+file_path_df = 'df_metrics.csv'
+df_metrics = pd.read_csv(file_path_df)
+selected_models = st.multiselect('Select Models', df_metrics['Model'].unique())
+selected_metrics = st.multiselect('Select Metrics', df_metrics.columns[1:])  # Exclude 'Model'
+
+# Filter Data based on Selection
+filtered_df = df_metrics[df_metrics['Model'].isin(selected_models)]
+
+# Create Bar Chart with Plotly
+if not filtered_df.empty:
+    fig = px.bar(filtered_df, x='Model', y=selected_metrics,
+                 labels={'Model': 'Models', 'value': 'Metric Value', 'variable': 'Metric'},
+                 title='Comparison of Selected Model Metrics',
+                 barmode='group')
+    
+    # Layout Adjustments
+    fig.update_layout(xaxis={'categoryorder': 'total descending'})  # Sort x-axis by total descending
+    
+    # Display Chart in Streamlit
+    st.plotly_chart(fig)
+else:
+    st.error('No data available for the selected models.')
+
+
+
 
 
 
