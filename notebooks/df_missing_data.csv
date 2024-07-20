@@ -1,0 +1,27 @@
+Column ;Non-Null Count ;type ;Missing Data (%)
+Marque ;44850;object ;0
+Modèle dossier ;44850;object ;0
+Modèle UTAC ;44850;object ;0
+Désignation  commerciale ;44850;object ;0
+CNIT ;44850;object ;0
+Type Variante Version (TVV) ;44850;object ;0
+Carburant ;44850;object ;0
+Hybride ;44850;object ;0
+Puissance administrative ;44850;int64 ;0
+Puissance maximale (kW) ;44850;float64 ;0
+Boîte de vitesse ;44850;object ;0
+Consommation urbaine (l/100km) ;44808;float64 ;0.09
+Consommation extra-urbaine (l/100km) ;44808;float64 ;0.09
+Consommation mixte (l/100km) ;44811;float64 ;0.09
+CO2 (g/km) ;44811;float64 ;0.09
+CO type I (g/km) ;44547;float64 ;0.68
+HC (g/km) ;10403;float64 ;76.81
+NOX (g/km) ;44547;float64 ;0.68
+HC+NOX (g/km) ;34191;float64 ;23.77
+Particules (g/km) ;41708;float64 ;7.01
+Masse vide euro min (kg) ;44850;int64 ;0
+Masse vide euro max (kg) ;44850;int64 ;0
+Champ V9 ;44615;object ;0.52
+Date de mise à jour ;44850;object ;0
+Carrosserie ;44850;object ;0
+Gamme ;44850;object ;0
