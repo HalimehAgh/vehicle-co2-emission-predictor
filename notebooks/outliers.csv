@@ -1,0 +1,8 @@
+Attribute ;Number of Outliers ;Lower Whisker ;Upper Whisker
+CO type I (g/km);1009 (2.26%);-0.218;0.486
+HC (g/km);4 (0.04%);-0.046;0.098
+NOX (g/km);10426 (23.41%);0.053;0.333
+HC+NOX (g/km);883 (2.58%);0.131;0.319
+Particules (g/km);3696 (8.86%);-0.0015;0.0025
+Masse vide euro min (kg);4397 (9.80%);1556.0;2676.0
+Masse vide euro max (kg);8240 (18.38%);1576.25;2822.25
