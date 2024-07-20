@@ -1,0 +1,20 @@
+Column Name ;Outliers
+Puissance administrative ;1041
+Puissance maximale (kW) ;1049
+Consommation urbaine (l/100km) ;504
+Consommation extra-urbaine (l/100km) ;302
+Consommation mixte (l/100km) ;394
+CO2 (g/km) ;263
+CO type I (g/km) ;573
+NOX (g/km) ;3644
+HC+NOX (g/km) ;617
+Particules (g/km) ;59
+masse vide euro min (kg) ;298
+masse vide euro max (kg) ;122
+gamme ECONOMIQUE ;219
+gamme INFERIEURE ;1622
+gamme LUXE ;0
+gamme MOY-INF ;2
+gamme MOY-INFER ;0
+gamme MOY-SUPER ;0
+gamme SUPERIEURE ;1956
