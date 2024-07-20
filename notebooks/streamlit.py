@@ -8,8 +8,8 @@ import seaborn as sns
 import io
 import sklearn
 import plotly.express as px
-
-
+import numpy as np
+from scipy import stats
 
 
 
@@ -18,27 +18,45 @@ cover_image_path = 'cover_image.png'  # Cover
 svg_path = 'Methodology.svg'  # SVG Methodology
 df=pd.read_csv("cl_JUIN_2013-complet3.csv",encoding='ISO-8859-1', sep=';')
 df_metrics=pd.read_csv("df_metrics.csv",encoding='ISO-8859-1', sep=';')
+df_missing_data=pd.read_csv("df_missing_data.csv",encoding='ISO-8859-1', sep=';')
+dt_outliers=pd.read_csv("outliers.csv",encoding='ISO-8859-1', sep=';')
+dt_table_7=pd.read_csv("table_7.csv",encoding='ISO-8859-1', sep=';')
+dt_cat_var=pd.read_csv("categorical_variables.csv",encoding='ISO-8859-1', sep=';')
 
 # Chapter titles
 chapters = {
     "Introduction": "📖",
-    "Data mining and Visualization": "📊",
-    "Pre-processing": "🔧",
-    "Feature Engineering": "🛠️",
+    "Data Exploration": "📊",
+    "Pre-processing and Feature Engineering": "🛠️",
+    #"Feature Engineering": "🛠️",
     "Modeling": "📈",
     # "Interpretation of results": "🔍",
     "Conclusion": "🏁",
-    "Application": "🚗"
+    "Application": "🚗💨"
 }
 
 # Sidebar with logo and table of contents
 st.sidebar.image(logo_path, use_column_width=True)
-st.sidebar.title("Agenda")
-selected_chapter = st.sidebar.radio("", ["🏠 Home"] + [f"{icon} {chapter}" for chapter, icon in chapters.items()])
 
+#================================================================
+sidebar_options = ["🏠 Home"] + [f"{icon} {chapter}" for chapter, icon in chapters.items()]
+selected_chapter = st.sidebar.radio("", sidebar_options)
+
+# Funktion zur Extraktion des Kapitelnamens aus der Sidebar-Auswahl
+def extract_chapter_name(selected_chapter):
+    if selected_chapter == "🏠 Home":
+        return "Home"
+    for chapter in chapters.keys():
+        option = f"{chapters[chapter]} {chapter}"
+        if selected_chapter == option:
+            return chapter
+    return None
+#===============================================================
+chapter_name = extract_chapter_name(selected_chapter)
+#==================================================
 # Display the cover page by default
 if selected_chapter == "🏠 Home":
-    st.title("CO2 Emissions Prediction Project")
+    st.markdown("## CO2 Emissions Prediction Project")
     st.image(cover_image_path, use_column_width=True)
     st.write("### Team Members")
     st.write("""
@@ -55,9 +73,12 @@ if selected_chapter == "🏠 Home":
         🏫 **DataScientest Paris**
     """)
 
+#============================================================================================================
 else:
-    st.title(selected_chapter.split(' ')[-1])
-    if selected_chapter == "📖 Introduction":
+    #st.title(selected_chapter.split(' ')[-1])
+    if chapter_name == "Introduction":
+        st.markdown("## 📖 Introduction")
+
         st.write("""
         
         - :red[**Objective:**]
@@ -77,13 +98,36 @@ else:
         st.image(svg_path, width=800)
         # st.write("joblib version:", joblib.__version__)
         # st.write("scikit-learn version:", sklearn.__version__)
-        
-    elif selected_chapter == "📊 Data mining and Visualization":
+   #====================================================================================================================     
+    elif chapter_name == "Data Exploration":
+        st.markdown("## 📊 Data Exploration")
         st.write(""" 
-            Hallo 
-                   """)
+        The dataset contains 44,850 entries and 26 columns, representing various properties of cars recorded in France in 2013. 
+        Key characteristics include fuel type, vehicle model name, fuel consumption, CO2 emissions, and other technical details.
+        The table below shows the first 5 rows of our dataset.
         
+                   """)
+    
         st.dataframe(df.head()) 
+        st.write(""" the table below displays all data for each column, including those with missing data""")
+        st.dataframe(df_missing_data.head(26))
+        st.write(""" Columns such as HC (g/km), HC+NOX (g/km), Particles (g/km), show the highest percentages of missing data. 
+        Identifying such columns allows for prioritizing data cleaning to ensure the accuracy and usability of the information.""")
+        st.write("""
+        #### :red[Numerical Variables]         
+        Numerical variables in data analysis represent numeric values. They are used for quantitative measurements such as:\n
+        - :red[Mean:] $$ \overline{x} $$ is the value obtained by summing all data points $$ {x_i} $$ divided by the number of data points $$ {n} $$
+        - :red[Standard deviation $\sigma$:] (Std or $\sigma$) measures the average deviation of data points $$ {x_i} $$ from the mean
+        - :red[Minimum and Maximum:] the smallest Min. and the largest value in the dataset.\n
+                 
+        - :red[Lower Whisker:] Corresponds to the Lower Bound, calculated as 𝑄1−1.5×𝐼𝑄𝑅
+        - :red[Upper Whisker:] Corresponds to the Upper Bound, calculated as Q3+1.5×IQR
+            
+        These values are essential for understanding central tendency, variability, and distribution
+        of data, which are fundamental for statistical analysis and modeling       
+         """)
+        st.dataframe(dt_outliers.head(26))
+        
         # List of attributes for the boxplots
         attributes_emission = ['CO type I (g/km)', 'HC (g/km)', 'NOX (g/km)', 'HC+NOX (g/km)', 'Particules (g/km)']
 
@@ -112,23 +156,99 @@ else:
         plt.tight_layout()
         st.pyplot(fig)
 
+        st.write(""" 
+        #### :red[ Categorical Variables]
+        Categorical variables represent distinct groups or categories, such as types or classifications. 
+        In our dataset, we have 11 variables that belong to this group. 
+        The next table shows the variables, the number of categories, and examples of categories.       
+         """)
+        st.dataframe(dt_cat_var)
 
-    elif selected_chapter == "📊 Data mining and Visualization":
-        st.write("""
+        st.write(""" 
+        #### :red[Data Visaulization]
+        Making difficult data more readable, comprehensible, and useful is one of
+        the main functions of visualization in data analysis.\n
+        Since we do not have enough time to show all examples, we will only present the example of the impact of the car's mean weight on CO2 emissions.
         
+        
+            """)
+
+        # Create a Streamlit app
+        st.markdown('#### Linear Regression of CO2 Emission vs. Mean Weight of Vehicles')
+        st.image('Linear_Regression_of_CO2_Emission vs._Mean_Weight.png')
+        st.write("""The figure shows that by using linear regression to examine the impact of mean weight on CO2 emissions, we obtained R² = 0.48, 
+        which indicates a moderate relationship between the mean weight values and the linear regression.
+        """)
+        
+
+#=====================================================================================================
+    elif chapter_name == "Pre-processing and Feature Engineering":
+        st.markdown("## 🛠️ Pre-processing and Feature Engineering")
+
+    # Pre-processing
+        st.markdown("## Pre-processing")
+
+        # Handling Missing Values and Duplicates
+        st.markdown("### Handling Missing Values and Duplicates")
+        st.markdown("""
+        In the dataset, we handled missing values by using mean imputation for numerical features and mode imputation 
+        for categorical features. Duplicates were removed to ensure data integrity.
+        """)
+        missing_values = df.isnull().sum()
+        st.write("Missing Values in Each Column:", missing_values)
+
+        # Handling Categorical Variables
+        st.markdown("### Handling Categorical Variables")
+        st.markdown("""
+        Categorical variables were encoded using one-hot encoding to convert them into a format suitable for machine 
+        learning algorithms. This process involved creating binary columns for each category in a categorical feature.
+        """)
+        categorical_cols = df.select_dtypes(include=['object']).columns
+        st.write("Categorical Columns:", categorical_cols)
+
+        # Normalizing Numerical Variables
+        st.markdown("### Normalizing Numerical Variables")
+        st.markdown("""
+        Normalization was applied to numerical variables to standardize the range of values. 
+        This helps in improving the performance of certain algorithms and ensuring that 
+        the features contribute equally to the model.
+        """)
+        numerical_cols = df.select_dtypes(include=[np.number]).columns
+        st.write("Numerical Columns before Normalization:", df[numerical_cols].describe())
+
+        # Handling of Outliers
+        st.markdown("### 4.1.4 Handling of Outliers")
+        st.markdown("""
+        Outliers were detected and handled using IQR method. Values that lie beyond 1.5 times the interquartile range
+        (IQR) were considered as outliers and were either removed or capped.
+        """)
+        # Example of outlier handling
+        Q1 = df[numerical_cols].quantile(0.25)
+        Q3 = df[numerical_cols].quantile(0.75)
+        IQR = Q3 - Q1
+        outliers = ((df[numerical_cols] < (Q1 - 1.5 * IQR)) | (df[numerical_cols] > (Q3 + 1.5 * IQR))).sum()
+        st.write("Number of Outliers in Each Column:", outliers)
+
+        st.write("""
+        |  |  |  |  |""")
+        st.dataframe(dt_table_7)
+
+        # Feature Engineering
+        st.markdown("## Feature Engineering")
+
+        # Feature Selection
+        st.markdown("### Feature Selection")
+        st.markdown("""
+        Feature selection was performed to identify the most relevant features for the prediction model. 
+        Techniques such as correlation analysis and feature importance from models were used.
         """)
 
-    elif selected_chapter == "🔧 Pre-processing":
-        st.write("""
-       
-        """)
 
-    elif selected_chapter == "🛠️ Feature Engineering":
-        st.write("""
      
-        """)
 
-    elif selected_chapter == "📈 Modeling":
+#====================================================================================================
+    elif chapter_name == "Modeling": 
+        st.markdown("## 📈 Modeling")
         st.write("""
                  """)
 
@@ -306,7 +426,7 @@ else:
         fig_ensemble = plot_metrics(df_metrics, selected_models_ensemble, metrics_ensemble, metric_group_ensemble)
         st.plotly_chart(fig_ensemble)
 
-        # Section 3: Model Comparison - Deep Learning Techniques
+        # Model Comparison - Deep Learning Techniques
         st.markdown("""
             ##### :red[Deep Learning Techniques:] \n
             Deep learning techniques use neural networks with many layers to analyze and predict outcomes based on input data.
@@ -371,7 +491,8 @@ else:
         st.plotly_chart(fig_dl)
 
 #========================================================================================================================================================================
-    elif selected_chapter == "🏁 Conclusion":
+    elif chapter_name == "Conclusion":
+        st.markdown("## 🏁 Conclusion")
         st.write("""
         - :red[**Model Results:**] Five models excelled: :red[**Randomforest**], :red[**XGBoost**], :red[**Gradient Boost**], :red[**Bagged Decision Trees**], :red[**Desision Trees**]. 
 
@@ -418,8 +539,9 @@ else:
             st.write("Please select at least one model and one metric.")
 
             
-
-    elif selected_chapter == "🚗 Application":
+#=====================================================================================================
+    elif chapter_name == "Application":
+        st.title("🚗💨 Application")
         st.write("""
         
         """)
