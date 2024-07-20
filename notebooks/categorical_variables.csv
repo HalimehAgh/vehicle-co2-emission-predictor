@@ -1,0 +1,12 @@
+Variable;Number of Categories;Example Values/Mode
+Modèle dossier;458;208, 305, 421
+Modèle UTAC;419;A25, B12, C36
+Désignation commerciale;3582;Compact, Sedan, SUV
+CNIT;44191;123456, 789012, 345678
+Type Variante Version (TVV);28781;Type1, Variant2, Version3
+Carburant;13;Diesel, Petrol, Hybrid
+Hybride;2;Non, Oui
+Boîte de vitesse;16;Manual, Automatic, CVT
+Champ V9;13;V9A, V9B, V9C
+Carrosserie;10;Hatchback, Sedan, SUV
+Gamme;7;Economy, Mid-range, Luxury
