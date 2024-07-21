@@ -542,10 +542,11 @@ else:
 #=====================================================================================================
     elif chapter_name == "Application":
         st.title("🚗💨 Application")
-        st.write("""
-        
+        st.write(""" We used our three best models to identify the features that have the greatest impact on CO2 emissions (See the diagram below). 
+                 These features were used as input fields for the random forest algorithm to make predictions.
         """)
-
+        st.image('feature_importance_comparison.png')
+       
         # Input form in the sidebar
         with st.sidebar:
             st.header("Input Data")
