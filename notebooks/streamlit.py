@@ -551,10 +551,10 @@ else:
         with st.sidebar:
             st.header("Input Data")
             Input_Data = {
-                "Consommation extra-urbaine (l/100km)": st.number_input("Consommation extra-urbaine (l/100km)", min_value=0, max_value=100),
-                "Consommation mixte (l/100km)": st.number_input("Consommation mixte (l/100km)", min_value=0, max_value=100),
+                "Consommation extra-urbaine (l/100km)": st.number_input("Consommation extra-urbaine (l/100km)", min_value=0, max_value=500),
+                "Consommation mixte (l/100km)": st.number_input("Consommation mixte (l/100km)", min_value=0, max_value=500),
                 "NOX (g/km)": st.number_input("NOX (g/km)", min_value=0, max_value=100),
-                "Consommation urbaine (l/100km)": st.number_input("Consommation urbaine (l/100km)", min_value=0, max_value=100),
+                "Consommation urbaine (l/100km)": st.number_input("Consommation urbaine (l/100km)", min_value=0, max_value=500),
                 "Carburant_GO": 1 if st.toggle("Carburant_GO - Yes/No", key="carburant_go") else 0,
                 "Carburant_ES": 1 if st.toggle("Carburant_ES - Yes/No", key="carburant_es") else 0,
                 "Puissance maximale (kW)": st.number_input("Puissance maximale (kW)", min_value=0, max_value=500),
@@ -579,12 +579,13 @@ else:
         if st.button("Predict"):
             prediction = model.predict(input_data)
             co2_value = prediction[0]
-            
+            co2_value_2=co2_value-0.13
+
             # Display the prediction in a styled box
             st.markdown(
                 f"""
                 <div style="background-color: rgb(255, 86, 68); padding: 20px; border-radius: 5px;">
-                    <h2 style="color: white; text-align: center;">Predicted CO2 Emissions: {co2_value:.2f} g/km</h2>
+                    <h2 style="color: white; text-align: center;">Predicted CO2 Emissions: {co2_value_2:.2f} kg/km</h2>
                 </div>
                 """,
                 unsafe_allow_html=True
